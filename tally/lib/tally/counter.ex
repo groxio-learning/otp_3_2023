@@ -1,9 +1,9 @@
 defmodule Tally.Counter do
+  defstruct [:count]
 
+  def new(x), do: %__MODULE__{count: String.to_integer(x)}
 
-  def new(x), do: String.to_integer(x)
+  def inc(%{count: count} = counter, x), do: %{counter | count: count + x}
 
-  def inc(acc, x), do: acc + x
-
-  def show(acc), do: "The ans arrrr is #{acc}"
+  def show(%{count: count}), do: "The ans arrrr is #{count}"
 end

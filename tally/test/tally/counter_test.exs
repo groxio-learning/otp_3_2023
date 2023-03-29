@@ -5,7 +5,8 @@ defmodule Tally.CounterTest do
 
   describe "new/1" do
     test "should return an integer equivalent to the string value" do
-      assert 42 == Counter.new("42")
+      assert %Counter{count: 42} == Counter.new("42")
+      assert Counter.new("42").__struct__ == Counter
     end
   end
 
