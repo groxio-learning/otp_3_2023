@@ -1,2 +1,3 @@
 - Bruce Tate
 - Grace Spletzer
+- Chris Miller 
