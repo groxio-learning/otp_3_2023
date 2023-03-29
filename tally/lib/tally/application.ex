@@ -9,7 +9,7 @@ defmodule Tally.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Tally.Worker.start_link(arg)
-      # {Tally.Worker, arg}
+      {Tally.Server, "42"}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
