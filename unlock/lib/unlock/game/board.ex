@@ -1,11 +1,12 @@
 defmodule Unlock.Game.Board do
-  defstruct [:guesses, :code]
+  defstruct [:guesses, :code, :scores]
 
   alias Unlock.Game.Score
 
   def new() do
     %__MODULE__{
       guesses: [],
+      scores: [],
       code: generate_code()
     }
   end
@@ -16,15 +17,12 @@ defmodule Unlock.Game.Board do
   end
 
   def guess(board, input) do
-    %{board | guesses: [input | board.guesses]}
+    score = Score.compute(board.code, input)
+    %{board | guesses: [input | board.guesses], scores: [score | board.scores]}
   end
 
   def show(board) do
-    show_guesses =
-      board.guesses
-      |> Enum.map(&Score.compute(board.code, &1))
-
-    %{guesses: show_guesses, status: calculate_status(board.guesses, board.code)}
+    %{guesses: board.scores, status: calculate_status(board.guesses, board.code)}
   end
 
   def calculate_status(guesses, code) do
