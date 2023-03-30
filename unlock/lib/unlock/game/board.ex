@@ -27,12 +27,6 @@ defmodule Unlock.Game.Board do
     %{guesses: show_guesses, status: calculate_status(board.guesses, board.code)}
   end
 
-  defp convert_input(input) do
-    input
-    |> String.graphemes()
-    |> Enum.map(&String.to_integer/1)
-  end
-
   def calculate_status(guesses, code) do
     cond do
       code == hd(guesses) -> :win
