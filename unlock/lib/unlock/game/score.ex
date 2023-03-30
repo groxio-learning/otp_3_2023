@@ -21,6 +21,7 @@ defmodule Unlock.Game.Score do
     "#{guess} #{rs}#{ws}"
   end
 
+
   defp compute_reds(score) do
     %{
       score
@@ -32,6 +33,7 @@ defmodule Unlock.Game.Score do
 
   defp compute_whites(score) do
     missing = Enum.count(score.guess -- score.ans)
+    
     %{score | whites: @total - (score.reds + missing)}
   end
 end
