@@ -16,7 +16,7 @@ defmodule Unlock.Game.Board do
   end
 
   def guess(board, input) do
-    %{board | guesses: [convert_input(input) | board.guesses]}
+    %{board | guesses: [input | board.guesses]}
   end
 
   def show(board) do
@@ -24,7 +24,7 @@ defmodule Unlock.Game.Board do
       board.guesses
       |> Enum.map(&Score.compute(board.code, &1))
 
-    %{guesses: show_guesses, status: calculate_status(show_guesses, board.code)}
+    %{guesses: show_guesses, status: calculate_status(board.guesses, board.code)}
   end
 
   defp convert_input(input) do
@@ -34,15 +34,8 @@ defmodule Unlock.Game.Board do
   end
 
   def calculate_status(guesses, code) do
-    last_code =
-      guesses
-      |> hd()
-      |> String.split()
-      |> Enum.at(0)
-      |> convert_input()
-
     cond do
-      code == last_code -> :win
+      code == hd(guesses) -> :win
       length(guesses) == 10 -> :lose
       true -> :play
     end
