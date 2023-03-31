@@ -15,4 +15,12 @@ defmodule Unlock do
   def hello do
     :world
   end
+
+  def new_game(name) do
+    DynamicSupervisor.start_child(:dsup, {Unlock.Game, name})
+  end
+
+  def move(name, guess) do
+    Unlock.Game.guess(name, guess)
+  end
 end
