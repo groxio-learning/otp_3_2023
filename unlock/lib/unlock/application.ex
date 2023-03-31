@@ -9,12 +9,16 @@ defmodule Unlock.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Unlock.Worker.start_link(arg)
-      {Unlock.Game, :game}
+      {Unlock.Game, :batman},
+      {Unlock.Game, :groot},
+      {Unlock.Game, :hiro},
+      {Unlock.Game, :rbg},
+      {Unlock.Game, :spiderman}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Unlock.Supervisor]
+    opts = [strategy: :rest_for_one, name: Unlock.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end

@@ -4,7 +4,7 @@ defmodule Unlock.Game do
   alias Unlock.Game.Board
 
   def start_link(name) do
-    GenServer.start_link(Unlock.Game, :unused, name: name)
+    GenServer.start_link(Unlock.Game, name, name: name)
   end
 
   def guess(game, input) do
@@ -23,8 +23,13 @@ defmodule Unlock.Game do
     |> IO.puts()
   end
 
-  def init(_) do
+  def init(name) do
+    IO.puts("init was called for #{name}")
     {:ok, Board.new()}
+  end
+
+  def child_spec(name) do
+    %{id: name, start: {Unlock.Game, :start_link, [name]}}
   end
 
   def handle_call({:guess, guess}, _, board) do
